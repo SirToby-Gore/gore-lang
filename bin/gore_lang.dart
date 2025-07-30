@@ -32,10 +32,10 @@ int main(List<String> arguments) {
       defaultsTo: false,
       help: '-h, --help: shows a help message',
     )
-    ..addFlag('info',
-      abbr: 'f',
+    ..addFlag('version',
+      abbr: 'v',
       defaultsTo: false,
-      help: '-f, --info: shows a info screen on the gore lang'
+      help: '-v, --version: shows a info screen on the gore lang'
     )
     ..addOption('input',
       abbr: 'i',
@@ -68,8 +68,8 @@ int main(List<String> arguments) {
     return 0;
   }
 
-  if (parsedArgs['info']) {
-    Map info = yaml.loadYaml(File(path.join(goreLangBasePath, 'info.yaml')).readAsStringSync());
+  if (parsedArgs['version']) {
+    Map info = yaml.loadYaml(File(path.join(goreLangBasePath, 'pubspec.yaml')).readAsStringSync());
     
     terminal.info('Version: ${info['version']}');
 

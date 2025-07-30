@@ -17,3 +17,6 @@
 # ignores the extra code for .so and .dll files
 *.o
 *.asm
+
+# re-includes for the template for new packages
+!packages/.template
