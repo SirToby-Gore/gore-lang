@@ -1,0 +1,15 @@
+import test
+
+// this is a comment
+        // this is an indented comment with tabs
+  // this is an indented comment with spaces
+
+print('hello word')
+
+var int x = \
+1 // 2
+
+if x > 5: 
+    print('x is bigger than 5')
+
+x = 4

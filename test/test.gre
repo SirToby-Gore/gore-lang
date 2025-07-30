@@ -1,0 +1,4 @@
+// import gre:html
+
+print('I have been imported from test')       \
+this is a continued line
