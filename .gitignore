@@ -20,3 +20,5 @@
 
 # re-includes for the template for new packages
 !packages/.template
+
+*__pycache__

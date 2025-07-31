@@ -3,22 +3,6 @@ import 'package:args/args.dart' as args;
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart' as yaml;
 
-// void main(List<String> arguments) {
-//   int exitCodeFunc = 0;
-
-//   try {
-//     exitCode = mainWrapper(arguments); //.then((int exitCode) => exitCodeFunc = exitCode);
-//   } catch (e) {
-//     terminal.error('Something went wrong :(\nPlease read the docs for help.');
-//     terminal.error(e.toString());
-//   } finally {
-//     // terminal.print('Exiting with code: $exitCodeFunc', newLine: true);
-//     terminal.endOfFile();
-//     exit(exitCodeFunc);
-//   }
-// }
-
-// int mainWrapper(List<String> arguments) {
 int main(List<String> arguments) {
   const List<String> modes = [
     'gre',
@@ -65,6 +49,8 @@ int main(List<String> arguments) {
     terminal.print('dart run bin/gore_lang.dart -i <input file> (-h, -o <output file>, -m <mode: (${modes.join(', ')})>)', newLine: true);
     terminal.print(argParser.usage, newLine: true);
 
+    terminal.endOfFile();
+
     return 0;
   }
 
@@ -72,6 +58,8 @@ int main(List<String> arguments) {
     Map info = yaml.loadYaml(File(path.join(goreLangBasePath, 'pubspec.yaml')).readAsStringSync());
     
     terminal.info('Version: ${info['version']}');
+
+    terminal.endOfFile();
 
     return 0;
   }
