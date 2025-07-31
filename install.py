@@ -1,3 +1,5 @@
+#!/bin/bash
+
 from vars import *
 
 def main() -> None:

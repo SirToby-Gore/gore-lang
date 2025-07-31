@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import os, sys
 sys.path.append(os.path.dirname(p=os.path.dirname(p=os.path.abspath(path=f'{__file__}../'))))
 
@@ -22,6 +24,7 @@ def main() -> None:
 
     with open(file=f'build_{LOWER_PACKAGE_NAME}.py', mode='w') as build_file:
         build_file.write('\n'.join([
+            f'#!/bin/python3',
             f'import os',
             f'import sys',
             f'sys.path.append(os.path.dirname(p=os.path.dirname(p=os.path.abspath(path=f\'{"{"}__file__{"}"}../../\'))))',
@@ -40,10 +43,12 @@ def main() -> None:
             f'main()',
         ]))
     
+    if os_name == OS.unix:
+        os.system(command=f'chmod +x build_{LOWER_PACKAGE_NAME}.py')
+    
     with open(file=f'{LOWER_PACKAGE_NAME}.cpp', mode='w') as cpp_file:
         cpp_file.write('\n'.join([
             f'#include \"{LOWER_PACKAGE_NAME}.h\"',
-            f'#include <iostream> // For demonstration purposes',
             f'',
             f'/*',
             f'```asm(Linux x86_64 NASM)',
@@ -93,7 +98,6 @@ def main() -> None:
             f'    mov [func_ptr], rax',
             f'',
             f'    call [func_ptr]',
-            f'',
             f'```',
             f'*/',
             f'',
@@ -107,26 +111,20 @@ def main() -> None:
             f'#ifndef {UPPER_PACKAGE_NAME}_H',
             f'#define {UPPER_PACKAGE_NAME}_H',
             f'',
-            f'// Macro for Windows DLL export/import',
-            f'// _WIN32 is a predefined macro by MSVC when compiling for Windows.',
             f'#ifdef _WIN32',
             f'  #ifdef {UPPER_PACKAGE_NAME}_EXPORTS',
-            f'    #define {UPPER_PACKAGE_NAME}_API __declspec(dllexport) // Export for building the DLL',
+            f'    #define {UPPER_PACKAGE_NAME}_API __declspec(dllexport)',
             f'  #else',
-            f'    #define {UPPER_PACKAGE_NAME}_API __declspec(dllimport) // Import for using the DLL',
+            f'    #define {UPPER_PACKAGE_NAME}_API __declspec(dllimport)',
             f'  #endif',
-            f'#else // Linux/Unix-like (GCC/Clang)',
-            f'  // For GCC/Clang, functions are often exported by default.',
-            f'  // If using -fvisibility=hidden, you might need __attribute__((visibility(\"default\"))).',
-            f'  // For simple cases, no explicit attribute is needed here.',
+            f'#else',
             f'  #define {UPPER_PACKAGE_NAME}_API',
             f'#endif',
             f'',
             f'#ifdef __cplusplus',
-            f'extern "C" {"{"} // Ensure C linkage to prevent C++ name mangling',
+            f'extern "C" {"{"}',
             f'#endif',
             f'',
-            f'// Declare the function that will be exported/imported',
             f'{UPPER_PACKAGE_NAME}_API void {LOWER_PACKAGE_NAME}_func(/* args */);',
             f'',
             f'#ifdef __cplusplus',
