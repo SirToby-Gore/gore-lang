@@ -3,6 +3,7 @@
 from vars import *
 
 def main() -> None:
+    os.system(command=f'dart pub get')
     os.system(command=f'dart compile exe "{GORE_LANG_MAIN_FILE}" -o "{GORE_LANG_BINARY}"')
     
     if os_name == OS.windows:
