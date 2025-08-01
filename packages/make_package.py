@@ -24,7 +24,7 @@ def main() -> None:
 
     with open(file=f'build_{LOWER_PACKAGE_NAME}.py', mode='w') as build_file:
         build_file.write('\n'.join([
-            f'#!/bin/python3',
+            f'{USER_SHEBANG}',
             f'import os',
             f'import sys',
             f'sys.path.append(os.path.dirname(p=os.path.dirname(p=os.path.abspath(path=f\'{"{"}__file__{"}"}../../\'))))',

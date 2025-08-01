@@ -15,7 +15,6 @@ os_name: OS = {
     sys.platform,
 ) or exit(code=1)
 
-
 GORE_LANG_NAME: str = 'gore_lang'
 BASE_PATH: str = {
     OS.windows: 'C:\\Program Files x86',
@@ -34,3 +33,4 @@ PYTHON: str = {
     OS.windows: 'python.exe',
     OS.unix: 'python3',
 }[os_name]
+USER_SHEBANG: str = '#!/bin/python3'

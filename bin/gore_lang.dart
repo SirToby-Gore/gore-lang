@@ -46,7 +46,7 @@ int main(List<String> arguments) {
 
   if (parsedArgs['help']) {
     terminal.print('USAGE:', newLine: true);
-    terminal.print('dart run bin/gore_lang.dart -i <input file> (-h, -o <output file>, -m <mode: (${modes.join(', ')})>)', newLine: true);
+    terminal.print('gore -i <input file> (-h, -o <output file>, -m <mode: (${modes.join(', ')})>)', newLine: true);
     terminal.print(argParser.usage, newLine: true);
 
     terminal.endOfFile();
