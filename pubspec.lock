@@ -221,10 +221,10 @@ packages:
     dependency: "direct main"
     description:
       name: rich_stdout
-      sha256: fbea3f5bc5527702bc6bbe1133c4c07a3c0c7902e373a13457ffb91d4ba056cc
+      sha256: "58ec6ecce9049a1bb34e59259394354f09ade48d4d12aa284249f118115191f6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.7"
   shelf:
     dependency: transitive
     description:

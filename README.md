@@ -8,23 +8,23 @@ secondly to brag about a language I built in my name.
 // Sourced from Geeks for Geeks
 
 def int fibonacci(int n):
-	// If n is 1 or 0, then return n, 
-  	// works for 0th and 1st terms
-    if n <= 1:
-        return n
+  // If n is 1 or 0, then return n, 
+  // works for 0th and 1st terms
+  if n <= 1:
+    return n
 
-    // Recurrence relation to find 
-  	// the rest of the terms
-    return fibonacci(n - 1) + fibonacci(n - 2)
+  // Recurrence relation to find 
+  // the rest of the terms
+  return fibonacci(n - 1) + fibonacci(n - 2)
 
 def int main():
-    const int number = 5
-  
-  	// Finds the number to the nth term 
-    // Makes an immutable pointer to the const number
-    print(fibonacci(#number))
+  const int number = 5
 
-    return 0
+  // Finds the number to the nth term 
+  // Makes an immutable pointer to the const number
+  print(fibonacci(#number))
+
+  return 0
 
 exit(main())
 ```
