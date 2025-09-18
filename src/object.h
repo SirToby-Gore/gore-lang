@@ -16,14 +16,15 @@ enum ObjectType {
     Bool,
     List,
     Map,
-    Null,
     Pointer,
+    Void,
 };
 
 class Object {
 public:
-    ObjectType type;
+    ObjectType type = ObjectType::Void;
     bool constant;
+    bool nullable;
     
     int64_t intData;
     double doubleData;
@@ -33,11 +34,10 @@ public:
     std::map<Object, Object> mapData;
     Object* object = nullptr;
 
-    Object() {
-        this->type = ObjectType::Null;
-    }
+    Object() {}
 
-    Object(std::string& value, bool constant = false) {
+    Object(std::string& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->constant = constant;
         
         std::regex stringPattern("^\"(.*)\"$");
@@ -51,7 +51,7 @@ public:
         std::smatch matches;    
 
         if (std::regex_search(value, matches, stringPattern)) {
-            this->stringData = matches.str(0);
+            this->stringData = matches.str(1);
             this->type = ObjectType::String;
 
             return;
@@ -84,8 +84,6 @@ public:
         }
 
         if (std::regex_search(value, nullPattern)) {
-            this->type = ObjectType::Null;
-
             return;
         }
 
@@ -108,51 +106,60 @@ public:
         throw std::runtime_error("invalid data given for value");
     }
 
-    Object(const int& value, bool constant = false) {
+    Object(const int& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Int;
         this->intData = value;
         this->constant = constant;
     }
-    Object(const int64_t& value, bool constant = false) {
+    Object(const int64_t& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Int;
         this->intData = value;
         this->constant = constant;
     }
-    Object(const double& value, bool constant = false) {
+    Object(const double& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Double;
         this->intData = value;
         this->constant = constant;
     }
-    Object(const bool& value, bool constant = false) {
+    Object(const bool& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Bool;
         this->boolData = value;
         this->constant = constant;
     }
-    Object(const std::string& value, bool constant = false) {
+    Object(const std::string& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::String;
         this->stringData = value;
         this->constant = constant;
     }
-    Object(const std::vector<Object>& value, bool constant = false) {
+    Object(const std::vector<Object>& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::List;
         this->listData = value;
         this->constant = constant;
     }
-    Object(const std::map<Object, Object>& value, bool constant = false) {
+    Object(const std::map<Object, Object>& value, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Map;
         this->mapData = value;
         this->constant = constant;
     }
-    Object(Object* object, bool constant = false) {
+    Object(Object* object, bool constant = false, bool nullable = false) {
+        this->nullable = nullable;
         this->type = ObjectType::Pointer;
         this->object = object;
         this->constant = constant;
     }
     
-    template <typename T>
-    T& getValue();
+    template <typename T> T& getValue();
 
     ObjectType getType() const;
+    std::string typeToStr() const;
+
     Object toString() const;
     std::string toStr() const;
 

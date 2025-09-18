@@ -47,42 +47,107 @@ Object Object::toString() const {
 }
 
 std::string Object::toStr() const {
+    std::string stringValue;
+    
     switch (this->type) {
         case ObjectType::Int:
-            return std::to_string(this->intData);
+            stringValue = std::to_string(this->intData);
+            break;
         
         case ObjectType::Double:
-            return std::to_string(this->intData);
+            stringValue = std::to_string(this->doubleData);
+            break;
 
         case ObjectType::Bool:
             if (this->boolData) {
-                return "TRUE";
+                stringValue = "TRUE";
+                break;
             }
-            return "FALSE";
+            stringValue = "FALSE";
+            break;
 
         case ObjectType::String:
-            return this->stringData;
+            stringValue = this->stringData;
+            break;
 
-        case ObjectType::Null:
-            return "NULL";
+        case ObjectType::Void:
+            stringValue = "Void";
+            break;
 
         case ObjectType::List:
-            return "[...]";
+            stringValue = "[...]";
+            break;
         
         case ObjectType::Map:
-            return "{...}";
+            stringValue = "{...}";
+            break;
 
         case ObjectType::Pointer:
             // Correctly handle the pointer case
             if (this->object != nullptr) {
-                return this->object->toStr();
+                stringValue = this->object->toStr();
+                break;
             } else {
-                return "NULL_POINTER";
+                stringValue = "NULL_POINTER";
+                break;
             }
 
         default:
-            return "";
+            stringValue = "|Unknown|";
+            break;
     }
+    
+    return stringValue;
+}
+
+std::string Object::typeToStr() const {
+    std::string typeName;
+    
+    switch (this->type) {
+        case ObjectType::Int:
+            typeName = "Int";
+            break;
+        
+        case ObjectType::Double:
+            typeName = "Double";
+            break;
+
+        case ObjectType::Bool:
+            typeName = "Bool";
+            break;
+
+        case ObjectType::String:
+            typeName = "String";
+            break;
+
+        case ObjectType::List:
+            typeName = "List";
+            break;
+        
+        case ObjectType::Map:
+            typeName = "List";
+            break;
+
+        case ObjectType::Pointer:
+            // Correctly handle the pointer case
+            if (this->object != nullptr) {
+                typeName = this->object->typeToStr();
+                break;
+            } else {
+                typeName = "NULL_POINTER";
+                break;
+            }
+
+        default:
+            typeName = "|Unknown|";
+            break;
+    }
+
+    if (this->nullable) {
+        typeName += "?";
+    }
+
+    return typeName;
 }
 
 Object Object::multiply(Object& other) {
